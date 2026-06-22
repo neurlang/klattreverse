@@ -12,46 +12,46 @@ HOP_LENGTH = 200
 # Each param index: (min, max) for uniform random generation
 # Derived from GoDoc ranges + user constraint: max formant freq = 9000 Hz
 PARAM_RANGES = [
-    (0, 2000),     # 0:  F0hz10   (F0*10, 0=unvoiced)
-    (0, 77),       # 1:  AVdb     (7 subtracted internally, effective 0-70)
-    (200, 9000),   # 2:  F1hz
-    (40, 1000),    # 3:  B1hz
-    (550, 9000),   # 4:  F2hz
-    (40, 1000),    # 5:  B2hz
-    (1200, 9000),  # 6:  F3hz
-    (40, 1000),    # 7:  B3hz
-    (1200, 9000),  # 8:  F4hz
-    (40, 1000),    # 9:  B4hz
-    (1200, 9000),  # 10: F5hz
-    (40, 1000),    # 11: B5hz
-    (1200, 9000),  # 12: F6hz
-    (40, 2000),    # 13: B6hz
-    (0, 9000),     # 14: FNZhz   (0=disabled)
-    (40, 1000),    # 15: BNZhz
-    (200, 9000),   # 16: FNPhz
-    (40, 1000),    # 17: BNPhz
+    (400, 2000),   # 0:  F0hz10   (below 400 → T0 > 4800, pitch reset never fires)
+    (20, 70),      # 1:  AVdb     (7 subtracted internally, below 20 is near-silent)
+    (200, 6000),   # 2:  F1hz     (capped at 6000 to avoid extreme resonator Q)
+    (100, 800),    # 3:  B1hz     (raised min BW to avoid high-Q sensitivity)
+    (550, 6000),   # 4:  F2hz
+    (100, 800),    # 5:  B2hz
+    (1200, 6000),  # 6:  F3hz
+    (100, 800),    # 7:  B3hz
+    (1200, 6000),  # 8:  F4hz
+    (100, 800),    # 9:  B4hz
+    (1200, 6000),  # 10: F5hz
+    (100, 800),    # 11: B5hz
+    (1200, 6000),  # 12: F6hz
+    (100, 800),    # 13: B6hz
+    (0, 6000),     # 14: FNZhz   (0=disabled)
+    (100, 800),    # 15: BNZhz
+    (200, 6000),   # 16: FNPhz
+    (100, 800),    # 17: BNPhz
     (0, 70),       # 18: ASP
-    (10, 65),      # 19: Kopen   (hard-clamped by Klatt)
+    (15, 55),      # 19: Kopen   (narrowed to avoid unnatural pulse shapes)
     (0, 80),       # 20: Aturb
     (0, 24),       # 21: TLTdb
     (0, 80),       # 22: AF
     (0, 40),       # 23: Kskew
-    (0, 80),       # 24: A1
-    (40, 1000),    # 25: B1phz
-    (0, 80),       # 26: A2
-    (40, 1000),    # 27: B2phz
-    (0, 80),       # 28: A3
-    (40, 1000),    # 29: B3phz
-    (0, 80),       # 30: A4
-    (40, 1000),    # 31: B4phz
-    (0, 80),       # 32: A5
-    (40, 1000),    # 33: B5phz
-    (0, 80),       # 34: A6
-    (40, 2000),    # 35: B6phz
-    (0, 80),       # 36: ANP
-    (0, 80),       # 37: AB
-    (0, 70),       # 38: AVpdb
-    (0, 60),       # 39: Gain0   (60 = unity)
+    (10, 70),      # 24: A1      (raised min to avoid silent branches)
+    (100, 800),    # 25: B1phz
+    (10, 70),      # 26: A2
+    (100, 800),    # 27: B2phz
+    (10, 70),      # 28: A3
+    (100, 800),    # 29: B3phz
+    (10, 70),      # 30: A4
+    (100, 800),    # 31: B4phz
+    (10, 70),      # 32: A5
+    (100, 800),    # 33: B5phz
+    (10, 70),      # 34: A6
+    (100, 800),    # 35: B6phz
+    (10, 70),      # 36: ANP
+    (10, 70),      # 37: AB
+    (10, 65),      # 38: AVpdb   (raised min to avoid silent parallel voice)
+    (16, 60),      # 39: Gain0   (below 16 → dbToLin returns 0)
 ]
 
 # CNN input shape

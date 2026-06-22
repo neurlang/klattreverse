@@ -1,8 +1,9 @@
 import math
-import random
 import argparse
 import struct
 import numpy as np
+
+from klatt.hashtron import Hash
 
 NPAR = 40
 MAX_SAM = 20000
@@ -467,7 +468,7 @@ class Klatt:
                 self.Onemd = 1.0
 
     def genNoise(self):
-        temp = random.randint(0, 16382)
+        temp = Hash.hash(self.Ns, 42, 16383)
         temp -= 8191
         self.Nrand = temp
         self.nlast = float(self.Nrand) + (0.75 * self.nlast)
